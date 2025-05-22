@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Scrapy Spider",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/venv/bin/scrapy",  // Adjust if your virtual environment is elsewhere
+      "args": ["crawl", "stackoverflow"],  // Replace "stackoverflow" with your spider name
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/stackoverflowdemo"  // Set the working directory to your Scrapy project
+    }
+  ]
+}
