@@ -4,11 +4,10 @@ import html
 from bs4 import BeautifulSoup
 
 class StackoverflowSpider(scrapy.Spider):
-    API_KEY = ""
     name = "stackoverflow"
     allowed_domains = ["api.stackexchange.com"]
     start_urls = [
-        "https://api.stackexchange.com/2.3/questions?order=desc&sort=votes&tagged=Python&site=stackoverflow&key=rl_7MDaPq5dVss5TykzTyAY4soTi&pagesize=100"
+        "https://api.stackexchange.com/2.3/questions?order=desc&sort=votes&tagged=Python&site=stackoverflow&key=rl_7MDaPq5dVss5TykzTyAY4soTi&pagesize=100&key=rl_7MDaPq5dVss5TykzTyAY4soTi",
     ]
 
     def start_requests(self):
@@ -20,7 +19,7 @@ class StackoverflowSpider(scrapy.Spider):
                 for question in data.get("items", []):
                     # Pass each question to the parse_answers method
                     yield scrapy.Request(
-                        url=f"https://api.stackexchange.com/2.3/questions/{question['question_id']}/answers?order=desc&sort=votes&site=stackoverflow&key=",
+                        url=f"https://api.stackexchange.com/2.3/questions/{question['question_id']}/answers?order=desc&sort=votes&site=stackoverflow&key=rl_7MDaPq5dVss5TykzTyAY4soTi&pagesize=3",
                         callback=self.parse_answers,
                         meta={"question_data": question},
                     )
@@ -36,7 +35,7 @@ class StackoverflowSpider(scrapy.Spider):
         # Make a request to fetch each answer's details
         for answer_id in answers_ids[:3]:
             yield scrapy.Request(
-                url=f"https://api.stackexchange.com/2.3/answers/{answer_id}?order=desc&sort=votes&site=stackoverflow&filter=withbody&key=",
+                url=f"https://api.stackexchange.com/2.3/answers/{answer_id}?order=desc&sort=votes&site=stackoverflow&filter=withbody&key=rl_7MDaPq5dVss5TykzTyAY4soTi",
                 callback=self.collect_answers,
                 meta={"question_data": question_data, "answer_id": answer_id},
             )

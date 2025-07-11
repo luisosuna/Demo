@@ -1,6 +1,6 @@
 import openai
 
-openai.api_key = ""
+openai.api_key = "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"
 
 # Step 1: Upload file
 file = openai.files.create(
