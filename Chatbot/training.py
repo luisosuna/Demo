@@ -1,6 +1,10 @@
 import openai
+import os
 
-openai.api_key = "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"
+# Retrieve the API key from an environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
+if not openai.api_key:
+    raise ValueError("API key not found. Please set the OPENAI_API_KEY environment variable.")
 
 # Step 1: Upload file
 file = openai.files.create(

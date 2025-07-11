@@ -1,6 +1,12 @@
+import os
 from openai import OpenAI
 
-client = OpenAI(api_key="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")
+# Retrieve the API key from an environment variable
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("API key not found. Please set the OPENAI_API_KEY environment variable.")
+
+client = OpenAI(api_key=api_key)
 
 while True:
     user_input = input("\n You: ")
